@@ -10,8 +10,8 @@ env:
   CXX: clang++
   CPATH: /usr/local/include
   LIBRARY_PATH: /usr/local/lib
-  CFLAGS: -O3 -Wno-deprecated-declarations -Wno-format -Wno-incompatible-pointer-types -Wno-implicit-function-declaration -Wno-int-conversion
-  CROSSCFLAGS: -O3 -Wno-deprecated-declarations -Wno-format -Wno-incompatible-pointer-types -Wno-implicit-function-declaration -Wno-int-conversion
+  CFLAGS: -O3
+  CROSSCFLAGS: -O3 -Wno-error=incompatible-pointer-types -Wno-error=int-conversion
   LDFLAGS: -Wl,-ld_classic -Wl,-headerpad_max_install_names -Wl,-rpath,@loader_path/../../ -Wl,-rpath,/usr/local/lib
   MACOSX_DEPLOYMENT_TARGET: 10.14
   WINE_CONFIGURE: $GITHUB_WORKSPACE/configure
@@ -37,9 +37,6 @@ jobs:
               "pkg-config"
               "gcenx/wine/cx-llvm"
 
-              # Utilities (DXVK)
-              "jq"
-
               # Dependencies
               "freetype"
               "gettext"
@@ -50,6 +47,7 @@ jobs:
               "winetricks"
           )
 
+          brew update
           brew install "${REQUIRED_PACKAGES[@]}"
 
       - name: Install mingw
@@ -67,7 +65,7 @@ jobs:
           ls $(brew --prefix)/lib
 
           echo "FFmpeg Libs" 
-          ls $(brew --prefix ffmpeg@6)/lib
+          ls $(brew --prefix ffmpeg@7)/lib
 
           echo "GStreamer Libs"
           ls $(brew --prefix gstreamer)/lib/gstreamer-1.0
@@ -252,24 +250,15 @@ jobs:
               "libidn2.0"
               "libintl.8"
               "libjpeg.8"
-              "libjxl.0.10"
-              "libjxl_threads.0.10"
+              "libjxl.0.11"
+              "libjxl_threads.0.11"
               "libMoltenVK"
               "libnettle.8"
               "libogg.0"
-              "libopenvino.2410"
-              "libopenvino_c.2410"
-              "libopenvino_onnx_frontend.2410"
-              "libopenvino_paddle_frontend.2410"
-              "libopenvino_pytorch_frontend.2410"
-              "libopenvino_tensorflow_frontend.2410"
-              "libopenvino_tensorflow_lite_frontend.2410"
               "liborc-0.4.0"
               "libp11-kit.0"
               "libpcre2-8.0"
-              "libpostproc.57"
               "libpng16.16"
-              "libpugixml.1"
               "librav1e.0.7"
               "librist.4"
               "librubberband.2"
@@ -278,7 +267,6 @@ jobs:
               "libsoxr.0"
               "libsrt.1.5"
               "libtasn1.6"
-              "libtbb.12"
               "libunistring.5"
               "libvidstab.1.2"
               "libvmaf.3"
@@ -299,13 +287,13 @@ jobs:
           )
 
           FFMPEG_LIBS=(
-            "libavfilter.9"
-            "libavformat.60"
-            "libavcodec.60"
-            "libavutil.58"
-            "libpostproc.57"
-            "libswresample.4"
-            "libswscale.7"
+            "libavfilter.10"
+            "libavformat.61"
+            "libavcodec.61"
+            "libavutil.59"
+            "libpostproc.58"
+            "libswresample.5"
+            "libswscale.8"
           )
 
           GSTREAMER_LIBS=(
@@ -337,7 +325,7 @@ jobs:
 
           for i in "${FFMPEG_LIBS[@]}"
           do
-              cp -Lr $(brew --prefix ffmpeg@6)/lib/"$i".dylib Libraries/Wine/lib
+              cp -Lr $(brew --prefix ffmpeg@7)/lib/"$i".dylib Libraries/Wine/lib
           done
 
           mkdir Libraries/Wine/lib/gstreamer-1.0
