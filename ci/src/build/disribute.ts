@@ -47,7 +47,7 @@ const ArtifactId = z.string().uuid();
 
 const Artifact = z.object({
     id: ArtifactId,
-    ref: z.string(),
+    href: z.string(),
     hash: z.object({
         algorithm: HashingAlgorithm,
         value: z.string(),
@@ -270,7 +270,7 @@ const removeObsolete = (
         if (!artifact) continue; // This should never happen.
         newArtifactsMap.set(artifactId, {
             id: artifactId, // Always prefer the map id.
-            ref: artifact.ref,
+            href: artifact.href,
             hash: {
                 algorithm: artifact.hash.algorithm,
                 value: artifact.hash.value,
@@ -409,7 +409,7 @@ const createArtifact = async (
     // Return the artifact.
     return {
         id: artifactId,
-        ref: artifactPath,
+        href: '/' + artifactPath,
         hash: {
             algorithm: 'blake3',
             value: hashValue,
