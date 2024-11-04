@@ -2,7 +2,8 @@ name: Build and Release
 on:
   push:
     tags:
-      - '^(stable|development)-v[0-9]+.[0-9]+.[0-9]+$'
+      - 'development-v*'
+      - 'stable-v*'
 
 env:
   LOG_LEVEL: debug
