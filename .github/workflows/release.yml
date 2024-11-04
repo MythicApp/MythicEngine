@@ -1,5 +1,5 @@
 name: Build and Release
-'on':
+on:
   push:
     tags:
       - '^(stable|development)-v[0-9]+.[0-9]+.[0-9]+$'
