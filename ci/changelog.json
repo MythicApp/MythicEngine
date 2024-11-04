@@ -1,0 +1,32 @@
+{
+    "default": {
+        "name": "MythicEngine v1.0.0",
+        "description": "## Release Notes\n\n- **New**: Introduced a new CI system for building MythicEngine on Github Actions with Ed25519 signatures.\n- **Known Issue**: Previous release patches are not included in this release.\n\n## Acknowledgements\n\n- Special thanks to [Gcenx](https://github.com/gcenx) for significant contributions to Wine on Mac and ongoing development support.\n- Appreciation to [Isaac Marovitz](https://github.com/IsaacMarovitz) for building WhiskyWine.\n"
+    },
+    "localized": {
+        "zh_CN": {
+            "name": "MythicEngine v1.0.0",
+            "description": "## 发布说明\n\n- **新增**：在 Github Actions 中引入了用于构建 MythicEngine 的新 CI 系统，并使用 Ed25519 签名。\n- **已知问题**：此版本未包含先前版本的补丁。\n\n## 致谢\n\n- 特别感谢 [Gcenx](https://github.com/gcenx) 对 Mac 版 Wine 的重大贡献和持续的开发支持。\n- 感谢 [Isaac Marovitz](https://github.com/IsaacMarovitz) 编译 WhiskyWine。\n- 感谢 [bridger4th](#) 翻译这些发布说明的中文版本。\n"
+        },
+        "zh_TW": {
+            "name": "MythicEngine v1.0.0",
+            "description": "## 發佈說明\n\n- **新增**：在 Github Actions 中引入了用於構建 MythicEngine 的新 CI 系統，並使用 Ed25519 簽名。\n- **已知問題**：此版本未包含先前版本的補丁。\n\n## 致謝\n\n- 特別感謝 [Gcenx](https://github.com/gcenx) 對 Mac 版 Wine 的重大貢獻和持續的開發支持。\n- 感謝 [Isaac Marovitz](https://github.com/IsaacMarovitz) 編譯 WhiskyWine。\n- 感謝 [bridger4th](#) 翻譯這些發佈說明的中文版本。\n"
+        },
+        "es_ES": {
+            "name": "MythicEngine v1.0.0",
+            "description": "## Notas de la Versión\n\n- **Nuevo**: Nueva sistema de CI introducido para compilar MythicEngine en Github Actions con firmas ED25519.\n- **Problema Conocido**: Los parches de las versiones anteriores no están incluidos en esta versión.\n\n## Agradecimientos\n\n- Un agradecimiento especial a [Gcenx](https://github.com/gcenx) por sus importantes contribuciones a Wine en Mac y su continuo apoyo en el desarrollo.\n- Agradecimiento a [Isaac Marovitz](https://github.com/IsaacMarovitz) por compilar WhiskyWine.\n- Agradecimiento a [bridger4th](#) por traducir estas Notas de la Versión al Español.\n"
+        },
+        "hi_IN": {
+            "name": "MythicEngine v1.0.0",
+            "description": "'## प्रदर्शन नोट्स\n\n- **नया**: हस्ताक्षरों के साथ Github Actions (Ed25519) पर MythicEngine के निर्माण के लिए एक नया CI सिस्टम पेश किया गया।\n- **ज्ञात समस्या**: पिछले रिलीज़ पैच इस रिलीज़ में शामिल नहीं हैं।\n\n## आभार\n\n- Mac और Wine पर चल रहे विकास समर्थन में महत्वपूर्ण योगदान के लिए [Gcenx](https://github.com/gcenx) को विशेष धन्यवाद।\n- WhiskyWine के निर्माण के लिए [Isaac Marovitz](https://github.com/IsaacMarovitz) की सराहना।\n- इन रिलीज़ नोट्स का हिंदी में अनुवाद करने के लिए धन्यवाद [shred](#)।\n'"
+        },
+        "uk_UA": {
+            "name": "MythicEngine v1.0.0",
+            "description": "## Інформація про реліз\n\n- **Новe**: Введено нову систему CI для білду MythicEngine на Github Actions з ключем ідентифікації Ed25519.\n- **Відома проблема**: До цього релізу не включені виправлення з попередніх релізів.\n\n## Подяки\n\n- Особлива подяка [Gcenx](https://github.com/gcenx) за значний внесок у розробку Wine на Mac та постійну підтримку розробки.\n- Подяка [Isaac Marovitz](https://github.com/IsaacMarovitz) за створення WhiskyWine.\n- Подяка [aetrnm](https://github.com/aetrnm) за переклад.\n"
+        },
+        "ru_RU": {
+            "name": "MythicEngine v1.0.0",
+            "description": "## Информация о релизе\n\n- **Новое**: Представлена новая система CI для сборки MythicEngine на Github Actions с ключом идентификации Ed25519.\n- **Известная проблема**: Изменения предыдущего релиза не включены в этот релиз.\n\n## Благодарности\n\n- Особая благодарность [Gcenx](https://github.com/gcenx) за значительный вклад в Wine на Mac и постоянную поддержку разработки.\n- Благодарность [Isaac Marovitz](https://github.com/IsaacMarovitz) за создание WhiskyWine.\n- Благодарность [aetrnm](https://github.com/aetrnm) за перевод.\n"
+        }
+    }
+}

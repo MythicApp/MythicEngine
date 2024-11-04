@@ -1,0 +1,16 @@
+# Deno
+deno.lock
+
+# Deno Node Compatibility
+node_modules/
+
+# Environment
+.env
+
+# Build
+.build/
+.logs/
+
+# Keys
+*.pem
+*.key

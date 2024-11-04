@@ -1,0 +1,122 @@
+name: Build and Release
+'on':
+  push:
+    tags:
+      - '^(stable|development)-v[0-9]+.[0-9]+.[0-9]+$'
+
+env:
+  LOG_LEVEL: debug
+
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get Environment Variables
+        run: |
+          TAG_NAME=${{ github.ref_name }}
+
+          if [[ "$TAG_NAME" =~ ^stable ]]; then
+            BRANCH=stable
+          elif [[ "$TAG_NAME" =~ ^development ]]; then
+            BRANCH=development
+          else
+          VERSION=${TAG_NAME#$BRANCH-v}
+
+          # Echo to the environment
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: vx.x.x # Latest version of Deno
+      - name: Use Xcode 15.2
+        run: sudo xcode-select -switch /Applications/Xcode_15.2.app
+      - name: Install Homebrew Packages
+        working-directory: ./ci
+        run: |
+          brew update
+          brew install $(deno run -q ci list-packages tools) $(deno run -q ci list-packages libraries)
+      - name: Install ming-w64 12
+        run: |
+          # As of mingw-w64 12, brew uses UCRT instead of MSVCRT
+          # Wine will fail to build with UCRT, so we must rollback.
+          curl -L https://raw.githubusercontent.com/Homebrew/homebrew-core/31209a399a7b40bf2cd3abd7aee2715547ccd5bd/Formula/m/mingw-w64.rb > mingw-w64.rb
+          brew install mingw-w64.rb
+          rm mingw-w64.rb
+      - name: Force use brew bison & cx-llvm
+        run: |
+          echo "$(brew --prefix bison)/bin" >> $GITHUB_PATH
+          echo "$(brew --prefix cx-llvm)/bin" >> $GITHUB_PATH
+      - name: Configure
+        working-directory: ./ci
+        run: |
+          deno run -q ci configure --build-logs --build-name darwin --target wine64,wine32on64 --mode release
+      - name: Build
+        working-directory: ./ci
+        run: |
+          deno run -q ci build --build-logs --build-name darwin --target wine64,wine32on64
+      - name: Install
+        working-directory: ./ci
+        run: |
+          deno run -q ci install --build-logs --build-name darwin --install-name darwin
+      - name: Package
+        working-directory: ./ci
+        run: |
+          deno run -q ci package \
+            --build-logs \
+            --install-name darwin \
+            --package-name darwin-arm64 \
+            --version $VERSION \
+            --features game-porting-toolkit,directx-vulkan,wine-mono,gstreamer-libraries,standard-libraries,winetricks
+      - name: Tar build logs
+        if: always()
+        working-directory: ./ci
+        run: |
+          LOG_PATH=$(deno run -q ci get-path --build-logs --logs)
+          tar -cJf $GITHUB_WORKSPACE/build-logs.tar.xz -C $LOG_PATH .
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: $GITHUB_WORKSPACE/build-logs.tar.xz
+      - name: Create keys
+        working-directory: ./ci
+        env:
+          PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        run: |
+          echo $PUBLIC_KEY > public.key
+          echo $PRIVATE_KEY > private.key
+          cat public.key | base64 -d > public.pem
+          cat private.key | base64 -d > private.pem
+      - name: Create Release
+        working-directory: ./ci
+        env:
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          S3_REGION: ${{ secrets.S3_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          UUID=$(deno run -q ci create-distribution --branch $BRANCH --version $VERSION --package-name darwin-arm64 --description-file description.json) 
+          i f [ -z "$UUID" ]; then
+            echo "Failed to create release"
+            exit 1
+          fi
+
+          # Write the public and private keys to the environment
+          echo 
+
+          deno run ci add-distribution-package \
+            --uuid $UUID \
+            --package $(deno run -q ci get-path --package darwin-arm64) \
+            --branch $BRANCH \
+            --public-key public.key \
+            --private-key private.key
+            --target-operating-system macOS
+            --target-architecture arm64
+      - name: Remove keys
+        working-directory: ./ci
+        run: |
+          rm public.pem
+          rm private.pem
