@@ -259,7 +259,7 @@ export const ignite = async (args: string[]): Promise<void> => {
                 const localizationsFile = path.normalize(
                     pathCWDIfNotAbsolute(opts.descriptionFile),
                 );
-                if (!await pathExists(localizationsFile, true)) {
+                if (!await pathExists(localizationsFile, false)) {
                     logger.error('The localizations file does not exist.');
                     return 1;
                 }
