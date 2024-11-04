@@ -102,22 +102,19 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          UUID=$(deno run -q ci create-distribution --branch $BRANCH --version $VERSION --package-name darwin-arm64 --description-file description.json) 
-          i f [ -z "$UUID" ]; then
+          UUID=$(deno run -q ci create-distribution --branch $BRANCH --version $VERSION --description-file changelog.json)
+          if [ -z "$UUID" ]; then
             echo "Failed to create release"
             exit 1
           fi
-
-          # Write the public and private keys to the environment
-          echo 
 
           deno run ci add-distribution-package \
             --uuid $UUID \
             --package $(deno run -q ci get-path --package darwin-arm64) \
             --branch $BRANCH \
             --public-key public.key \
-            --private-key private.key
-            --target-operating-system macOS
+            --private-key private.key \
+            --target-operating-system macOS \
             --target-architecture arm64
       - name: Remove keys
         working-directory: ./ci
