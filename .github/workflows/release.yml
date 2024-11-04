@@ -90,10 +90,8 @@ jobs:
           PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         run: |
-          echo $PUBLIC_KEY > public.key
-          echo $PRIVATE_KEY > private.key
-          cat public.key | base64 -d > public.pem
-          cat private.key | base64 -d > private.pem
+          echo "$PUBLIC_KEY" | base64 -d > public.pem
+          echo "$PRIVATE_KEY" | base64 -d > private.pem
       - name: Create Release
         working-directory: ./ci
         env:
@@ -112,10 +110,15 @@ jobs:
             --uuid $UUID \
             --package $(deno run -q ci get-path --package darwin-arm64) \
             --branch $BRANCH \
-            --public-key public.key \
-            --private-key private.key \
+            --public-key public.pem \
+            --private-key private.pem \
             --target-operating-system macOS \
             --target-architecture arm64
+        
+          if [ $? -ne 0 ]; then
+            echo "Failed to add package to release"
+            exit 1
+          fi
       - name: Remove keys
         working-directory: ./ci
         run: |
