@@ -1,0 +1,26 @@
+{
+    "tasks": {
+        "ci": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run --allow-sys --unstable src/main.ts"
+    },
+    "fmt": {
+        "lineWidth": 80,
+        "indentWidth": 4,
+        "semiColons": true,
+        "singleQuote": true
+    },
+    "imports": {
+        "@aws-sdk/client-s3": "npm:@aws-sdk/client-s3@^3.682.0",
+        "@cliffy/command": "jsr:@cliffy/command@1.0.0-rc.4",
+        "@noble/ed25519": "jsr:@noble/ed25519@^2.1.0",
+        "@std/crypto": "jsr:@std/crypto@^1.0.3",
+        "@std/dotenv": "jsr:@std/dotenv@^0.225.2",
+        "@std/encoding": "jsr:@std/encoding@^1.0.5",
+        "@std/fmt": "jsr:@std/fmt@^1.0.3",
+        "@std/io": "jsr:@std/io@^0.225.0",
+        "@std/path": "jsr:@std/path@^1.0.7",
+        "@std/semver": "jsr:@std/semver@^1.0.3",
+        "@std/streams": "jsr:@std/streams@^1.0.7",
+        "zod": "npm:zod@^3.23.8"
+    },
+    "nodeModulesDir": "auto"
+}

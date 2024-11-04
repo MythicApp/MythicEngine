@@ -1,0 +1,120 @@
+{
+    "tools": [
+        {
+            "name": "bison",
+            "package": "bison"
+        },
+        {
+            "name": "pkg-config",
+            "package": "pkg-config"
+        },
+        {
+            "name": "cx-llvm",
+            "package": "gcenx/wine/cx-llvm"
+        },
+        {
+            "name": "freetype",
+            "package": "freetype"
+        },
+        {
+            "name": "gettext",
+            "package": "gettext"
+        },
+        {
+            "name": "gnutls",
+            "package": "gnutls"
+        },
+        {
+            "name": "gstreamer",
+            "package": "gstreamer"
+        }
+    ],
+    "libraries": [
+        {
+            "library": "libgstapplemedia",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstasf",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstaudioconvert",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstaudioparsers",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstaudioresample",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstavi",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstcoreelements",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstdebug",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstdeinterlace",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstid3demux",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstisomp4",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstlibav",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstopengl",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstplayback",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgsttypefindfunctions",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstvideoconvertscale",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstvideofilter",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstvideoparsersbad",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libgstwavparse",
+            "type": "gstreamer"
+        },
+        {
+            "library": "libMoltenVK",
+            "package": "molten-vk",
+            "type": "normal"
+        },
+        {
+            "library": "libSDL2-2.0.0",
+            "package": "sdl2",
+            "type": "normal"
+        }
+    ]
+}
